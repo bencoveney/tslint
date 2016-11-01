@@ -29,17 +29,15 @@ export class Rule extends Lint.Rules.AbstractRule {
             modifications are prevented:
                 - \`parameter.property = "newValue"\`
                 - \`++parameter.property\` etc
-                - \`delete parameter.property\`
-            You can still call methods on parameter properties:
-                - \`parameter.property()\``,
+                - \`delete parameter.property\``,
         rationale: Lint.Utils.dedent`
             Accidental manipulation of a referential function parameter could have unintended
             consequences for calling code.
 
-            Additionally multiple assignments to a single parameter create confusion for
-            maintainers who could reasonably expect that accessing the parameter results in the
-            value passed into the function. This problem worsens if the parameter and its contents
-            are documented initially before reassignment or manipulation.`,
+            Additionally reassigning a parameter can create confusion for maintainers who could
+            reasonably expect that accessing the parameter results in the value passed into the
+            function. This problem worsens if the parameter and its contents are documented
+            initially before reassignment or manipulation.`,
         optionsDescription: "Not configurable.",
         options: null,
         optionExamples: ["true"],
@@ -56,7 +54,4 @@ export class Rule extends Lint.Rules.AbstractRule {
 }
 
 class NoParamReassignWalker extends Lint.RuleWalker {
-    public visitNode(node: ts.Node) {
-        super.visitNode(node);
-    }
 }
